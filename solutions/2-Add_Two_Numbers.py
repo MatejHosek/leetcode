@@ -1,6 +1,7 @@
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        digits = []
+        head = None
+        end = None
 
         carry = 0
         while (l1 is not None or l2 is not None) or carry != 0:
@@ -18,12 +19,11 @@ class Solution:
             carry = (sum - (sum % 10)) // 10
             sum = sum % 10
 
-            digits.append(sum)
+            if head is None:
+                head = ListNode(sum, None)
+                end = head
+                continue
 
-        # Loop through list nodes and construct linked list
-        solution = None; i = len(digits) - 1
-        while i >= 0:
-            solution = ListNode(digits[i], solution)
-            i -= 1
-
-        return solution
+            end.next = ListNode(sum, None)
+            end = end.next
+        return head
